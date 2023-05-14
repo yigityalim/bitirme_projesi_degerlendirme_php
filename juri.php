@@ -13,5 +13,6 @@
 </head>
 <body>
 <h1>Jüri Sayfası</h1>
+<p>Jüriler burada gözükür</p>
 </body>
 </html>
