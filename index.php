@@ -7,10 +7,10 @@ if (!isset($_SESSION['kullanici'])) {
 }
 $kullanici = $_SESSION['kullanici'];
 
-$proje = $vt->query("SELECT _proje.*
+$proje = $vt->query("SELECT proje.*
                            FROM juri_atama
                            INNER JOIN juri ON juri.id = juri_atama.juri_id
-                           INNER JOIN _proje ON _proje.id = juri_atama.proje_id
+                           INNER JOIN proje ON proje.id = juri_atama.proje_id
                            WHERE juri.id = '{$kullanici['id']}'")->fetch_assoc();
 
 if (!isset($_SESSION['proje_id'])) $_SESSION['proje_id'] = $proje['id'];
@@ -45,7 +45,7 @@ if (!isset($_SESSION['proje_id'])) $_SESSION['proje_id'] = $proje['id'];
     <div class="row d-flex justify-content-start align-items-center">
         <div class="btn-group gap-3">
             <a href="ogrenci.php" class="btn btn-outline-primary rounded">Öğrenciler</a>
-            <a href="form.php" class="btn btn-outline-primary rounded">Bitirme Projeleri</a>
+            <a href="proje.php" class="btn btn-outline-primary rounded">Tüm Bitirme Projeleri</a>
             <a href="juri.php" class="btn btn-outline-primary rounded">Diğer Jüriler</a>
         </div>
     </div>

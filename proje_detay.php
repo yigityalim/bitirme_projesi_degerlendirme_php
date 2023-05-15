@@ -6,7 +6,7 @@ if (!isset($_SESSION['kullanici'])) {
     exit;
 }
 
-$projeler = $vt->query("SELECT * FROM bitirme_projesi_degerlendirme._proje WHERE id = " . $_SESSION['proje_id'])->fetch_all(MYSQLI_ASSOC);
+$projeler = $vt->query("SELECT * FROM bitirme_projesi_degerlendirme.proje WHERE id = " . $_SESSION['proje_id'])->fetch_all(MYSQLI_ASSOC);
 
 $juriler = $vt->query("SELECT juri.* FROM juri_atama 
     INNER JOIN juri ON juri.id = juri_atama.juri_id
@@ -17,7 +17,7 @@ $ortalama = array_reduce($puanlar, fn($carry, $item) => $carry + $item['puan']) 
 
 $ogrenciler = $vt->query('SELECT * FROM ogrenci
 INNER JOIN proje_atama ON ogrenci.id = proje_atama.ogrenci_id
-INNER JOIN _proje ON proje_atama.proje_id = _proje.id WHERE proje_id=' . $_SESSION['proje_id'])->fetch_all(MYSQLI_ASSOC);
+INNER JOIN proje ON proje_atama.proje_id = proje.id WHERE proje_id=' . $_SESSION['proje_id'])->fetch_all(MYSQLI_ASSOC);
 ?>
 <!doctype html>
 <html lang="tr" class="h-100">
@@ -104,8 +104,9 @@ INNER JOIN _proje ON proje_atama.proje_id = _proje.id WHERE proje_id=' . $_SESSI
                                         name="puanlar[]"
                                         type="number"
                                         placeholder="Puan Giriniz:">
-                                    <input type="hidden" name="juri_id[]" value="<?= $juri['id'] ?>">
-                                    <input type="hidden" name="key[]" value="<?= $_SESSION['kullanici']['id'] == $juri['id'] ? $key : '' ?>">
+                                        <input type="hidden" name="juri_id[]" value="<?= $juri['id'] ?>">
+                                        <input type="hidden" name="key[]"
+                                           value="<?= $_SESSION['kullanici']['id'] == $juri['id'] ? $key : '' ?>">
                                 </label>
                             </td>
                         </tr>
